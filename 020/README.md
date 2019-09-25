@@ -1,4 +1,4 @@
-#Task 20
+# Task 20
 
 n! means n × (n − 1) × ... × 3 × 2 × 1
 
