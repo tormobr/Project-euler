@@ -1,9 +1,5 @@
 
 
-# collatz chain
-# Which starting number, under one million, produces the longest chain?
-
-
 def func_even(n):
     return n/2
 

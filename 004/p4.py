@@ -1,9 +1,4 @@
 
-
-# A palindromic number reads the same both ways. 
-
-#Find the largest palindrome made from the product of two 3-digit numbers.
-
 prods = []
 for i in range(100, 999, 1):
     for j in range(100, 999, 1):
