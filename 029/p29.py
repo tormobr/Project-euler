@@ -5,12 +5,14 @@ def eval(l, h):
     for i in range(l,h):
         for j in range(l,h):
             ans = i**j
-            res.append(ans)
+            if ans not in res:
+                res.append(ans)
     print(len(res))
 
 def eval_pretty(l,h):
-    res = [
+    print(len(set([i**j for i in range(l,h) for j in range(l,h)])))
 
 eval(2,101)
+eval_pretty(2,101)
     
 
