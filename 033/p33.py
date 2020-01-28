@@ -1,48 +1,29 @@
 import math
 
+# im not proud of this code
+
 def solve():
-    res = []
+    prod = [1,1]
     for i in range(11,100, 1):
-        for j in range(i, 100, 1):
-            if i % 10 == 0 or j % 10 == 0 or i == j:
+        for j in range(i+1, 100, 1):
+            if i % 10 == 0 or j % 10 == 0:
                 continue
-            if str(i)[0] == str(i)[1]:
+            if str(i)[0] == str(i)[1] or str(j)[0] == str(j)[1]:
                 continue
-            if str(j)[0] == str(j)[1]:
-                continue
-            if str(i)[0] in str(j):
-                k,l = check_second(i,j)
-                if i/j == k/l:
-                    res.append((i,j))
-            if str(i)[1] in str(j):
-                k,l = check_first(i,j)
-                if i/j == k/l:
-                    res.append((i,j))
-    return res
+            k,l = remove(i,j, 1)
+            if i / j == k / l:
+                prod[0] *= i
+                prod[1] *= j
+    return prod[1] /math.gcd(*prod)
 
-
-def check_first(i,j):
-    str_i = str(i)
-    str_j = str(j)
-
-    k = str_i[0]
-    l = str_j.replace(str_i[1], "")
-    return (int(k), int(l))
-
-def check_second(i,j):
-    str_i = str(i)
-    str_j = str(j)
-
-    k = str_i[1]
-    l = str_j.replace(str_i[0], "")
-    return (int(k), int(l))
-
+def remove(i, j, index):
+    i = str(i)
+    to_remove = i[index]
+    i = i[:index] + i[index+1:]
+    j = str(j).replace(to_remove, "")
+    print("to replace", to_remove)
+    print("i: ", i, "j: ",j)
+    return (int(i), int(j))  
+    
 res = solve()
 print(res)
-num = 1
-den = 1
-for i,j in res:
-    num *= i
-    den *= j
-gcd = math.gcd(num, den)
-print(den/gcd)
