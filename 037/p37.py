@@ -5,7 +5,6 @@ import math
 def solve():
     primes = gen_primes()
     SEEN = set([2,3,5,7])
-    #for i in range(4): next(primes)
     n = 5
     res = []
     while True:
