@@ -4,9 +4,8 @@ def solve():
     res = 0
     for i in range(10000):
         current = i
-        for k in range(49):
+        for k in range(50):
             current = current + int(str(current)[::-1])
-            print(current)
             if is_palin(current):
                 break
         else:
