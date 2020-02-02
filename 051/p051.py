@@ -4,21 +4,16 @@ import time
 import math
 
 def solve():
-
     n = 1000000
     primes = sieve(n)
     prime_set = set(primes)
     for p in primes:
-        print(p)
         for i in range(1, len(str(p))-1):
             hax = replace(p, i)
             for row in hax:
-                count = 0
-                for elem in row:
-                    if elem in prime_set and len(str(elem)) == len(str(p)): 
-                        count += 1
-                        if count == 8:
-                            return (sorted(row), p)
+                row = list(filter(lambda x: len(str(x)) == len(str(p)), row))
+                if len(set(row) & prime_set) == 8:
+                    return row[0]
 
 
 def replace(p, n):
@@ -50,6 +45,7 @@ def sieve(n):
     return primes
 
 
-print(replace(9999, 2))
+s = time.time()
 print(solve())
+print("runtime", time.time()-s)
 
