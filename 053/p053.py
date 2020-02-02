@@ -3,6 +3,8 @@ from itertools import combinations
 
 def solve():
     res = 0
+    res = [nCr(i,j) for j in range(1,i+1) for i in range(1,101)]
+    return len(list(filter(lambda x: x > 1000000, res)))
     for i in range(1, 101):
         for j in range(1, i+1):
             if nCr(i,j) > 1000000:
