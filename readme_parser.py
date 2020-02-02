@@ -3,9 +3,6 @@ import re
 import urllib.request
 
 arg = sys.argv[1]
-if arg[0] == 0:
-    arg = arg[1:]
-
 fp = urllib.request.urlopen("https://projecteuler.net/problem=" + arg)
 text = fp.read().decode("utf8")
 
