@@ -10,14 +10,9 @@ def solve():
      
 
 def gen_frac(x):
-    ret = []
-    n = 1
-    d = 1
+    ret =[(1, 1)]
     for i in range(x):
-        print(n, d)
-        new_n = n + (2*d)
-        new_d = n + d
-        n, d = new_n, new_d
-        ret.append((n, d))
+        n, d = ret[i]
+        ret.append((n+(2*d), n+d))
     return ret 
 print(solve())
