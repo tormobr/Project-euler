@@ -12,15 +12,9 @@ def rec(data, level, i):
     left = rec(data, level+1, i)
     right = rec(data, level+1, i+1)
     return data[level][i] + max(left, right)
-        
-
 
 def read_file():
-    ret = []
-    with open("input.txt") as fd:
-        for line in fd:
-            ret.append(list(map(int, line.split())))
-    return ret
+    return [[int(x) for x in line.split()] for line in open("input.txt")]
 
 
 print(solve())
