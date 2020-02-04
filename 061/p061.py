@@ -1,116 +1,54 @@
 from itertools import permutations
-from collections import OrderedDict
+from collections import defaultdict
 import time
 
 
-"""
 def solve():
-    print(len(pent.keys()))
-    return
-    for a in tri.keys():
-        for b in square.keys():
-            #if not is_cycle([a,b]):
-                #continue
-            for c in pent.keys():
-                #if not is_cycle([a,b,c]):
-                    #continue
-                for d in hexx.keys():
-                    #if not is_cycle([a,b,c,d]):
-                        #continue
-                    for e in hept.keys():
-                        #if not is_cycle([a,b,c,d,e]):
-                            #continue
-                        for f in octt.keys():
-                            items = [a,b,c,d,e,f]
-                            print(items)
-                            if is_cycle(items) and not same(items):
-                                if True:
-                                    print("found some good shit!!")
-                                    time.sleep(100)
-
-"""
+    nums = gen(1000, 9999)
+    d = create_dict(nums)
+    for k in d.keys():
+        rec(d.copy(), k, [])
 
 
+def rec(d, k, path):
+    print(k)
+    childs = d[k]
+    path.append(k)
+    if len(path) == 6:
+        print("possibly:", path)
+        if match(k[1], path[0][1]):
+            if len(set([t for t,v in path])) == 6:
+                print(str(k)[2:], str(path[0])[:2])
+                print("found the shit!!!!", path, sum([v for t,v in path]))
+                time.sleep(10)
+    elif len(path) > 6:
+        return
+    for c in childs:
+        rec(d, c, path.copy())
+    
 
+def match(a, b):
+    return a % 100 == b // 100
 
+def gen(s, e):
+    i = 1
+    ret = []
+    for i in range(19,141):
+        ret += [(3, int(i*(i+1)/2)),
+        (4, int(i**2)),
+        (5, int(i*((3*i)-1)/2)),
+        (6, int(i*((2*i)-1))),
+        (7, int(i*((5*i)-3)/2)),
+        (8, int(i*((3*i)-2)))]
+        i += 1
+    return list(filter(lambda x: len(str(x[1])) == 4, ret))
 
-def same(a):
-    ret = set([f[n] for (f, n) in zip(funcs, a)])
-    return len(ret) != len(a)
-
-
-
-def is_cycle(a):
-    perms = permutations(a)
-    for p in perms:
-        n = len(p)
-        for i in range(len(a)-1):
-            if str(p[i])[2:] != str(p[(i+1)])[:2]:
-                break
-        else:
-            return True
-    return False
-
-
-def gen_tri(s, e):
-    ret = OrderedDict()
-    for i in range(1,e):
-        num = int(i*(i+1)/2)
-        if num > 9999:
-            return ret
-        if num > 1000:
-            ret[num] = i
-
-def gen_sq(s,e):
-    ret = OrderedDict()
-    for i in range(1,e):
-        num = int(i**2)
-        if num > 9999:
-            return ret
-        if num > 1000:
-            ret[num] = i
-def gen_pent(s,e):
-    ret = OrderedDict()
-    for i in range(1,e):
-        num = int(i*((3*i)-1)/2)
-        if num > 9999:
-            return ret
-        if num > 1000:
-            ret[num] = i
-def gen_hex(s,e):
-    ret = OrderedDict()
-    for i in range(1,e):
-        num = int(i*((2*i)-1))
-        if num > 9999:
-            return ret
-        if num > 1000:
-            ret[num] = i
-def gen_hept(s,e):
-    ret = OrderedDict()
-    for i in range(1,e):
-        num = int(i*((5*i)-3)/2)
-        if num > 9999:
-            return ret
-        if num > 1000:
-            ret[num] = i
-def gen_oct(s,e):
-    ret = OrderedDict()
-    for i in range(1,e):
-        num = int(i*((3*i)-2))
-        if num > 9999:
-            return ret
-        if num > 1000:
-            ret[num] = i
-    return  {i*((3*i)-2):i for i in range(s,e)}
-
-e = 100000
-s = 1000
-tri = gen_tri(s,e)
-square = gen_sq(s,e)
-pent = gen_pent(s,e)
-hexx = gen_hex(s,e)
-hept = gen_hept(s,e)
-octt = gen_oct(s,e)
-funcs = [tri, square, pent, hexx, hept, octt]
+def create_dict(a):
+    d = defaultdict(lambda: [])
+    for t, v in a:
+        for t1, v1 in a:
+            if str(v)[2:] == str(v1)[:2] and t != t1:
+                d[(t,v)].append((t1, v1))
+    return d
 
 print(solve())
