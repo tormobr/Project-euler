@@ -3,23 +3,11 @@ import time
 
 def solve():
     data = read_file()
-    for i, line in enumerate(data[::-1]):
-        for j, elem in enumerate(data[i]):
-            print(elem)
+    for i in range(len(data)-1, 0, -1):
+        for j in range(len(data[i])-1):
+            data[i-1][j] += max(data[i][j], data[i][j+1])
+    return data[0][0]
 
-
-
-
-    #return rec(data, 0, 0)
-
-def rec(data, level, i):
-    print(level, i)
-    if level == len(data)-1:
-        return data[level][i]
-
-    left = rec(data, level+1, i)
-    right = rec(data, level+1, i+1)
-    return data[level][i] + max(left, right)
 
 def read_file():
     return [[int(x) for x in line.split()] for line in open("input.txt")]
