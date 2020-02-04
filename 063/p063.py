@@ -1,12 +1,6 @@
 import time
 
 def solve():
-    res = 0
-    for i in range(1, 40):
-        for j in range(1, 10000):
-            if len(str(j**i)) == i:
-                res += 1
-    return res
-
+    return sum([1 for i in range(1,30) for j in range(1,10) if len(str(j**i)) == i])
 
 print(solve())
