@@ -5,7 +5,6 @@ from itertools import permutations
 def solve():
     cubes = gen_cube(10000)
     for k, v in cubes.items():
-        
         for k1, v1 in cubes.items():
             if sorted(str(k)) == sorted(str(k1)):
                 cubes[k].append(k1)
