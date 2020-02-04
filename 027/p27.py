@@ -1,7 +1,7 @@
 
 
 def solve():
-    primes = sieve(10000000)
+    primes = sieve(100000)
     prime_set = set(primes)
     res = (0,0,0)
     for a in range(-1000, 1001):
@@ -15,7 +15,7 @@ def solve():
                     break
             if reps > res[0]:
                 res = (reps, a ,b)
-    return res
+    return res[1]*res[2], res[0]
 
 
 
