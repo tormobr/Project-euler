@@ -3,7 +3,14 @@ import time
 
 def solve():
     data = read_file()
-    return rec(data, 0, 0)
+    for i, line in enumerate(data[::-1]):
+        for j, elem in enumerate(data[i]):
+            print(elem)
+
+
+
+
+    #return rec(data, 0, 0)
 
 def rec(data, level, i):
     print(level, i)
