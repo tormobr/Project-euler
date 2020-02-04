@@ -8,9 +8,9 @@ def solve():
     nums = gen()
     d = create_dict(nums)
     for k in d.keys():
-        rec(d.copy(), k, [])
+        search(d.copy(), k, [])
 
-def rec(d, k, path):
+def search(d, k, path):
     path.append(k)
     if len(path) == 6:
         if path[0] in d[k] and len(set([t for t,v in path])) == 6:
@@ -18,21 +18,16 @@ def rec(d, k, path):
             sys.exit(0)
     else:
         for c in d[k]:
-            rec(d, c, path.copy())
+            search(d, c, path.copy())
 
 def match(a, b):
     return a % 100 == b // 100
 
-
 def gen():
     ret = []
-    for i in range(19,144):
-        ret += [(3, i*(i+1)/2),
-            (4, i**2),
-            (5, i*((3*i)-1)/2),
-            (6, i*((2*i)-1)),
-            (7, i*((5*i)-3)/2),
-            (8, i*((3*i)-2))]
+    for i in range(150):
+        ret += f(i)
+    ret = list(filter(lambda x: 999 < x[1] < 10000, ret))
     return list(map(lambda x: (x[0], int(x[1])), ret))
 
 def create_dict(a):
@@ -42,5 +37,14 @@ def create_dict(a):
             if match(v, v1) and t != t1:
                 d[(t,v)].append((t1, v1))
     return d
+
+def f(n):
+    return [(3, n*(n+1)/2),
+            (4, n**2),
+            (5, n*((3*n)-1)/2),
+            (6, n*((2*n)-1)),
+            (7, n*((5*n)-3)/2),
+            (8, n*((3*n)-2))]
+
 
 print(solve())
