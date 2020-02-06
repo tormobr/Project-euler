@@ -10,13 +10,29 @@ def solve():
 
     for k, v in D.items():
         DFS(D.copy(), k, [])
+    
+    return BFS(D.copy())
+    
         
 def DFS(D, k, path):
     path.append(k)
     for k2 in D[k]:
-        if k2 not in path:
-            DFS(D, k2, path.copy())
-    print(path, len(path))
+        DFS(D, k2, path.copy())
+    if len(path) == len(D):
+        print(path, len(path))
+
+def BFS(D):
+    for k in D.copy().keys():
+        q = []
+        q.append((k,[]))
+        while q:
+            current, path = q.pop(0)
+            path.append(current)
+            if len(path) == len(D):
+                return (path, len(path))
+
+            for k2 in D[current]:
+                q.append((k2, path.copy()))
 
 
 def read_file():
