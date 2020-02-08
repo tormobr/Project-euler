@@ -8,7 +8,6 @@ def solve():
             data[i-1][j] += max(data[i][j], data[i][j+1])
     return data[0][0]
 
-
 def read_file():
     return [[int(x) for x in line.split()] for line in open("input.txt")]
 

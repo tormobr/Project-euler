@@ -69,6 +69,4 @@ def print_num(n):
 
     return ret
 
-num = print_num(100)
-print(len(num), num)
 print(solve())
