@@ -1,7 +1,18 @@
-
+from collections import defaultdict
 import time
 
 def solve():
+    return dynamic()
+
+def create_dict():
+    d = defaultdict(lambda: [])
+    for i in range(h):
+        for j in range(w):
+            d[(i,j)].append((i+1, j))
+            d[(i,j)].append((i, j+1))
+    return d
+
+def dynamic():
     for i in range(h-1, -1, -1):
         data[h][i] += data[h][i+1]
         data[i][w] += data[i+1][w]
@@ -16,6 +27,7 @@ def read_file():
 
 
 data = read_file()
+dist = defaultdict(int)
 h = len(data) -1
 w = len(data[0]) -1
 print(solve())
