@@ -3,6 +3,11 @@ from copy import deepcopy
 from collections import defaultdict
 import time
 
+UP = (0, -1)
+DOWN  = (0, 1)
+LEFT = (-1, 0)
+RIGHT = (1, 0)
+
 def solve():
     d = create_dict()
     return dijkstra(d)
@@ -23,13 +28,11 @@ def dijkstra(d):
                 heapq.heappush(q, (new_val, k))
     return dist[(n-1, m-1)] + data[0][0]
 
-    
-
 def create_dict():
     d = defaultdict(lambda: defaultdict(int))
     for i in range(n):
         for j in range(m):
-            for dx,dy in [(1,0), (-1,0), (0,1), (0,-1)]:
+            for dx,dy in [UP, DOWN, LEFT, RIGHT]:
                 if 0 <= i+dy < n and 0 <= j+dx < m:
                     d[(i,j)][(i+dy, j+dx)] = data[i+dy][j+dx]
     return d
@@ -42,7 +45,6 @@ s = time.time()
 data = read_file()
 n = len(data)
 m = len(data[0])
-res = deepcopy(data)
 
 print(solve())
 print("runtime: ", time.time()-s)
