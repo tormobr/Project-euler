@@ -34,11 +34,11 @@ def read_file():
     return [list(map(int, line.split(","))) for line in open("input.txt").read().strip().split("\n")]
 
 
+s = time.time()
 data = read_file()
 h = len(data) -1
 w = len(data[0]) -1
 res = deepcopy(data)
 
-s = time.time()
 print(solve())
 print("runtime: ", time.time()-s)
