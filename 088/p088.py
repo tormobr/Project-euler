@@ -14,75 +14,37 @@ from functools import reduce
 # this is a comment
 
 def solve(n):
-    d = defaultdict(int)
     for i in range(2, n*2):
         print("current i :", i)
-        facs = factorize(i)
+        facs = [(i,)]
+        get_factors_rec(i, i, [], facs)
         for f in facs:
-            summ = sum(f)
-            ones = i - summ
-            if ones < 1 and len(f) == 1:
-                continue
-            k = ones +len(f)
-            if (d[k] == 0 or i < d[k]) and k <= n:
-                d[k] = i
+            add_k_val(f, i, n)
 
-    vals = set()
-    for k, v in d.items():
-        if k <= n:
-            vals.add(v)
-    return sum(vals), len(d)
-    
-def factorize(n):
-    res = []
-    ret = set()
-    for p in primes:
-        while n % p == 0:
-            res.append(p)
-            n //= p
+    return sum(set([v for k,v in d.items()]))
 
-    partitions = partition(res)
-    for p in partitions:
-        current = []
-        for elem in p:
-            current.append(reduce(mul, elem))
-        ret.add(tuple(current))
-    return ret
-
-
-def partition(collection):
-    if len(collection) == 1:
-        yield [ collection ]
+def add_k_val(f, prod, n):
+    ones = prod - sum(f)
+    k = ones + len(f)
+    if ones < 1 and len(f) == 1 or k > n:
         return
-    first = collection[0]
-    for smaller in partition(collection[1:]):
-        for n, subset in enumerate(smaller):
-            yield smaller[:n] + [[ first ] + subset]  + smaller[n+1:]
-        yield [[ first ]] + smaller
+    if (d[k] == 0 or prod < d[k]):
+        d[k] = prod
 
+def get_factors_rec(number, parent_value, parent_factors, all_factors):
+    new_value = parent_value
+    for i in reversed(range(2, number)):
+        if number % i == 0:
+            if new_value > i:
+                new_value = i
+                
+            if number // i <= parent_value and i <= parent_value and number // i <= i:
+                all_factors.append((*parent_factors, i, number // i))
+                new_value = number // i
+                
+            if i <= parent_value:
+                get_factors_rec(number // i, new_value, parent_factors[:] + [i], all_factors)
 
-def sieve(n):
-    primes = []
-    bitmap = [1 for i in range(n+1)]
-    x = 2
-    while x *x <= n:
-        if bitmap[x]:
-            for i in range(x*2, n+1, x):
-                bitmap[i] = 0
-        x += 1
-
-    for i in range(2, n):
-        if bitmap[i]:
-            primes.append(i)
-    return primes
-    
-
+d = defaultdict(int)
 factors = defaultdict(lambda: [])
-primes = sieve(100000)
-prime_set = set(primes)
-#parts = partition([2,2,3])
-#for p in parts:
-    #print(p)
-#print(factorize(12))
-#print("ret: ",factorize(4))
 print("ret: ",solve(12000))
